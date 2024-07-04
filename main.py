@@ -19,9 +19,11 @@ def get_next_json():
     global current_json_idx
     if current_json_idx >= len(jsons_list):
         return {'error': 'No more jsons'}, 400
+    is_home = request.args.get('home', 'not_home')
+    if is_home != 'home':
+        current_json_idx += 1
         
     json_name = jsons_list[current_json_idx]
-    current_json_idx += 1
     with open(f'static/jsons/{json_name}', 'r') as f:
         json_data = f.read()
     return json_data

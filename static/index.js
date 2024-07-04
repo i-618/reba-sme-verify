@@ -21,7 +21,7 @@ window.onload = () => {
   stage.add(layer);
   console.log(stage);
   
-  fetch_json_file()
+  fetch_json_file('home')
   ////////////// FOR SCROLL ZOOMING  //////////////////
   let scaleBy = 1.15;
   stage.on('wheel', (e) => {
@@ -187,7 +187,7 @@ function submitSurvey(event) {
   pose_label_index = pose_label_index + 1
 
   if(pose_label_index % 3 == 0){
-    fetch_json_file()
+    fetch_json_file('submit')
     score_track['annotations'] += 1
     console.log(score_track)
     json_data['score'] = score_track
@@ -211,8 +211,8 @@ function submitSurvey(event) {
   
 }
 
-function fetch_json_file() {
-  fetch('/get_next_json')
+function fetch_json_file(home) {
+  fetch('/get_next_json?home=' + home)
     .then(response => response.json())
     .then(data => {
         json_data = data
