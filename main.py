@@ -58,8 +58,6 @@ def table():
     if len(cols) > 1:
         prnt_df.loc['Total'] = pd.Series(prnt_df[list(cols)].sum())
 
-
-
     return flask.render_template(
         "table.html",
         table=prnt_df.to_html())
@@ -68,6 +66,8 @@ def table():
 def delete_output_files():
     for file in os.listdir('static/output'):
         os.remove(f'static/output/{file}')
+    global current_json_idx
+    current_json_idx = 0
     return 'DELETED'
 
 
@@ -78,4 +78,4 @@ def reset_index():
     return 'DONE'
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(debug=True, host='0.0.0.0', port=80)
